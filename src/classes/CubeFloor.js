@@ -22,13 +22,15 @@ class CubeFloor {
     this.intersects = []
     this.wOrigin = new THREE.Vector3(0,0,0)
 
+    const cube = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshNormalMaterial({
+      wireframe: false,
+    }))
+
     for (let x = 0; x < this.params.xNum; x++) {
       for (let z = 0; z < this.params.zNum; z++) {
-        const cube = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshNormalMaterial({
-          wireframe: false,
-        }))
-        cube.position.set(x - this.params.xNum / 2, 0, z - this.params.zNum / 2)
-        this.cubeGroup.add(cube)
+        const clone = cube.clone()
+        clone.position.set(x - this.params.xNum / 2, 0, z - this.params.zNum / 2)
+        this.cubeGroup.add(clone)
       }
     }
     this.scene.add(this.cubeGroup)
